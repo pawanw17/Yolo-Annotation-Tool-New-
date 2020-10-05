@@ -17,13 +17,14 @@ from os import getenv
 if(sys.version_info[0] == 2):
     from Tkinter import *
     import tkMessageBox
+    from Tkinter import tkFileDialog as filedialog
 elif(sys.version_info[0] == 3):
     from tkinter import *
     from tkinter import messagebox as tkMessageBox
     from tkinter import filedialog
 
 MAIN_COLORS = ['red','blue','black','yellow','green','darkolivegreen', 'darkseagreen', 'darkorange', 'darkslategrey', 'darkturquoise', 'darkgreen', 'darkviolet', 'darkgray', 'darkmagenta', 'darkblue', 'darkkhaki','darkcyan', 'darkred',  'darksalmon', 'darkslategray', 'darkgoldenrod', 'darkgrey', 'darkslateblue', 'darkorchid','skyblue','orange','pink','violet','brown','gold','Olive','Maroon', 'cyan','olivedrab', 'lightcyan', 'silver']
-print(type(MAIN_COLORS))
+# print(MAIN_COLORS)
 home  = getenv("HOME")
 # image sizes for the examples
 SIZE = 256, 256
@@ -100,8 +101,9 @@ class LabelTool():
         self.mainPanel.bind("<Motion>", self.mouseMove)
         self.parent.bind("<Escape>", self.cancelBBox)  # press <Espace> to cancel current bbox
         self.parent.bind("s", self.cancelBBox)
-        self.parent.bind("<Left>", self.prevImage) # press 'a' to go backforward
-        self.parent.bind("<Right>", self.nextImage) # press 'd' to go forward
+        self.parent.bind("a", self.prevImage) # press 'a' to go backforward
+        self.parent.bind("d", self.nextImage) # press 'd' to go forward
+
         self.mainPanel.grid(row = 1, column = 1, rowspan = 4, sticky = W+N)
 
         # showing bbox info & delete bbox
@@ -131,9 +133,9 @@ class LabelTool():
         # control panel for image navigation
         self.ctrPanel = Frame(self.frame)
         self.ctrPanel.grid(row = 6, column = 1, columnspan = 2, sticky = W+E)
-        self.prevBtn = Button(self.ctrPanel, text='<< Prev', width = 10, command = self.prevImage)
+        self.prevBtn = Button(self.ctrPanel, text='<<(a) Prev', width = 10, command = self.prevImage)
         self.prevBtn.pack(side = LEFT, padx = 5, pady = 3)
-        self.nextBtn = Button(self.ctrPanel, text='Next >>', width = 10, command = self.nextImage)
+        self.nextBtn = Button(self.ctrPanel, text='Next (d)>>', width = 10, command = self.nextImage)
         self.nextBtn.pack(side = LEFT, padx = 5, pady = 3)
         self.progLabel = Label(self.ctrPanel, text = "Progress:     /    ")
         self.progLabel.pack(side = LEFT, padx = 5)
@@ -173,7 +175,7 @@ class LabelTool():
                 activeforeground='black')
 
         # 
-        print(type(widget))
+        # print(type(widget))
 
     def select_text_or_select_and_copy_text(self,event):
         event.widget.select_range(0, 'end')

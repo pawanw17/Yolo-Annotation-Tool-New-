@@ -15,7 +15,7 @@ percentage = args.percentage
 
 print(annotation_dir,percentage)
 
-root_dir = os.getcwd()
+
 current_dir=annotation_dir
 # Percentage of images to be used for the test set
 percentage_test = percentage
@@ -29,7 +29,7 @@ for pathAndFilename in glob.iglob(os.path.join(current_dir, "*.jpg")):
     title, ext = os.path.splitext(os.path.basename(pathAndFilename))
     if counter == index_test:
         counter = 1
-        file_test.write(root_dir + "/" + current_dir + "/" + title + '.jpg' + "\n")
+        file_test.write(current_dir  + title + '.jpg' + "\n")
     else:
-        file_train.write(root_dir + "/" + current_dir + "/" + title + '.jpg' + "\n")
+        file_train.write(current_dir + title + '.jpg' + "\n")
         counter = counter + 1
